@@ -44,6 +44,12 @@ INSERT INTO profiles (user_id, bio)
 VALUES
 (4, 'loves coding'); // 4 user id already exist in the table users
 
+
+-- Delete a table
+--- If it has a foreign key, it will not be possible to delete it until the foreign key is deleted.
+DROP TABLE profiles;
+
+
 -- Create several tables at the same time
 
 CREATE TABLE players (
@@ -83,8 +89,8 @@ CREATE TABLE student_courses(
 student_id INT,
 course_id INT,
 PRIMARY KEY (student_id, course_id),
-FOREIGN KEY (student_id) REFERENCES students(id),
-FOREIGN KEY (course_id) REFERENCES courses(id),
+FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE, 
+FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE, -- CASCADE will delete the row in the composite table if the row in the parent table is deleted.
 );
 
 -- Adding data to a composite table
@@ -182,3 +188,6 @@ GROUP BY
 players.name, games.title
 ORDER BY
 play_count DESC;
+
+
+-- Gist link: https://gist.github.com/gmoraleslondono/45fef720194ecf5f5f7bd6a2130ebeda
