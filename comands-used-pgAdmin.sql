@@ -189,5 +189,24 @@ players.name, games.title
 ORDER BY
 play_count DESC;
 
+-- It shows a list all players who haven’t played any games
 
--- Gist link: https://gist.github.com/gmoraleslondono/45fef720194ecf5f5f7bd6a2130ebeda
+SELECT players.name
+FROM players
+LEFT JOIN scores ON players.id = scores.player_id
+WHERE scores.player_id IS NULL;
+
+-- to get the average score for each game
+
+SELECT games.title, AVG(scores.score) AS average_score
+FROM games
+JOIN scores ON games.id = scores.game_id
+GROUP BY games.title;
+
+-- to find the highest score each player has achieved
+
+SELECT players.name, MAX(scores.score) AS highest_score
+FROM players
+JOIN scores ON players.id = scores.player_id
+GROUP BY players.name;
+
